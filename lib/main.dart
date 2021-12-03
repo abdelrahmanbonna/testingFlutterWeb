@@ -30,11 +30,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String text = '';
+  String text = '', stars = '';
   var list = [];
   TextEditingController _textEditingController = TextEditingController();
 
-  Future<void> injectCssAndJSLibraries() async {
+  Future<void> injectCssAndJS() async {
     final List<Future<void>> loading = <Future<void>>[];
     final List<html.HtmlElement> tags = <html.HtmlElement>[];
 
@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    injectCssAndJSLibraries();
+    injectCssAndJS();
   }
 
   @override
@@ -84,6 +84,28 @@ class _MyHomePageState extends State<MyHomePage> {
                   _textEditingController.clear();
                 });
               },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: InkWell(
+              onTap: () {
+                setState(() {
+                  stars = js.context
+                      .callMethod('printStars', [list.last]).toString();
+                });
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.5,
+                height: MediaQuery.of(context).size.width * 0.5,
+                decoration: BoxDecoration(
+                  color: Colors.amber,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Center(
+                  child: Text(stars),
+                ),
+              ),
             ),
           )
         ],

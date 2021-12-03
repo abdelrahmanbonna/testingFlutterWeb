@@ -4,13 +4,14 @@ function testJs(){
 }
 
 function printStars(length ){
-  for (let index = 0; index < length; index++) {
-    for (let i = 0; i < length; i++) {
-      alert('*')
+  var strng = ''
+  for (let index = 0; index <= length; index++) {
+    for (let i = index; i >0; i--) {
+      strng +='*'
     }
-    alert('\n')
+    strng +='\n'
   }
-
+  return strng
 }
 
 function getValue(){
