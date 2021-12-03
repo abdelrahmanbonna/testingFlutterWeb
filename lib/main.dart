@@ -66,55 +66,71 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
-      ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(text),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              controller: _textEditingController,
-              onSubmitted: (value) {
-                var number = int.parse(value);
-                setState(() {
-                  list.add(number);
-                  _textEditingController.clear();
-                });
-              },
+        actions: [
+          IconButton(
+            onPressed: () {
+              setState(() {
+                html.querySelector('#passField')?.remove();
+                stars = '';
+                text = '';
+              });
+            },
+            icon: Icon(
+              Icons.delete,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-              onTap: () {
-                setState(() {
-                  stars = js.context
-                      .callMethod('printStars', [list.last]).toString();
-                });
-              },
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.5,
-                height: MediaQuery.of(context).size.width * 0.5,
-                decoration: BoxDecoration(
-                  color: Colors.amber,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Center(
-                  child: Text(stars),
-                ),
+        ],
+      ),
+      body: Scrollbar(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(text),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: _textEditingController,
+                onSubmitted: (value) {
+                  var number = int.parse(value);
+                  setState(() {
+                    list.add(number);
+                    _textEditingController.clear();
+                  });
+                },
               ),
             ),
-          )
-        ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: InkWell(
+                onTap: () {
+                  setState(() {
+                    stars = js.context
+                        .callMethod('printStars', [list.last]).toString();
+                  });
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.5,
+                  height: MediaQuery.of(context).size.width * 0.5,
+                  decoration: BoxDecoration(
+                    color: Colors.amber,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Center(
+                    child: Text(stars),
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
             text = js.context.callMethod('getValue', list).toString();
-            html.querySelector('body')?.children.insert(
+            html.querySelector('flt-scene')?.children.insert(
                 0,
                 html.DivElement()
                   ..innerHtml = text
@@ -124,8 +140,8 @@ class _MyHomePageState extends State<MyHomePage> {
           let's make a change in the canvas not the body
           */
         },
-        tooltip: 'Login',
-        child: Icon(Icons.login),
+        tooltip: 'Calculate',
+        child: Icon(Icons.calculate),
       ),
     );
   }
