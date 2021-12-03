@@ -98,6 +98,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   ..innerHtml = text
                   ..id = 'passField');
           });
+          /*
+          let's make a change in the canvas not the body
+          */
         },
         tooltip: 'Login',
         child: Icon(Icons.login),
