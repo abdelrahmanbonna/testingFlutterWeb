@@ -1,0 +1,13 @@
+#form {
+    border: 1px solid #000;
+    font-size: medium;
+    padding: 16px;
+}
+
+#passField {
+    color: crimson;
+}
+
+#passField1 {
+    color: royalblue;
+}
